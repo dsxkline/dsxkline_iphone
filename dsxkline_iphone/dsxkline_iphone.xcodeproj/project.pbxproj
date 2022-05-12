@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1151395E282D583E007256FE /* dsx.kline_v_1_0_1.js in Resources */ = {isa = PBXBuildFile; fileRef = 1151395D282D583E007256FE /* dsx.kline_v_1_0_1.js */; };
 		1156A185280FAFCF0000697B /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 1156A184280FAFCF0000697B /* index.html */; };
 		1189D924280F945E00B5D1AF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1189D923280F945E00B5D1AF /* AppDelegate.m */; };
 		1189D927280F945E00B5D1AF /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1189D926280F945E00B5D1AF /* SceneDelegate.m */; };
@@ -18,7 +19,6 @@
 		1189D93F280F945F00B5D1AF /* dsxkline_iphoneTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1189D93E280F945F00B5D1AF /* dsxkline_iphoneTests.m */; };
 		1189D94A280F945F00B5D1AF /* dsxkline_iphoneUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1189D949280F945F00B5D1AF /* dsxkline_iphoneUITests.m */; };
 		1189D95F280F9B7300B5D1AF /* DsxKlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1189D95E280F9B7300B5D1AF /* DsxKlineView.m */; };
-		11A03600280FAF98003A41AD /* dsx.kline.js in Resources */ = {isa = PBXBuildFile; fileRef = 11A035FF280FAF98003A41AD /* dsx.kline.js */; };
 		11D86A32282BADD800F36CDB /* QQhq.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D86A31282BADD800F36CDB /* QQhq.m */; };
 		11D86A35282BAECD00F36CDB /* HqModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D86A34282BAECD00F36CDB /* HqModel.m */; };
 /* End PBXBuildFile section */
@@ -41,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1151395D282D583E007256FE /* dsx.kline_v_1_0_1.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = dsx.kline_v_1_0_1.js; sourceTree = "<group>"; };
 		1156A184280FAFCF0000697B /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		1189D91F280F945E00B5D1AF /* dsxkline_iphone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dsxkline_iphone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1189D922280F945E00B5D1AF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -62,7 +63,6 @@
 		1189D94B280F945F00B5D1AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1189D95D280F9B7300B5D1AF /* DsxKlineView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DsxKlineView.h; sourceTree = "<group>"; };
 		1189D95E280F9B7300B5D1AF /* DsxKlineView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DsxKlineView.m; sourceTree = "<group>"; };
-		11A035FF280FAF98003A41AD /* dsx.kline.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = dsx.kline.js; sourceTree = "<group>"; };
 		11D86A30282BADD800F36CDB /* QQhq.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QQhq.h; sourceTree = "<group>"; };
 		11D86A31282BADD800F36CDB /* QQhq.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QQhq.m; sourceTree = "<group>"; };
 		11D86A33282BAECD00F36CDB /* HqModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HqModel.h; sourceTree = "<group>"; };
@@ -154,8 +154,8 @@
 		1189D957280F9AB300B5D1AF /* dsxkline */ = {
 			isa = PBXGroup;
 			children = (
+				1151395D282D583E007256FE /* dsx.kline_v_1_0_1.js */,
 				1156A184280FAFCF0000697B /* index.html */,
-				11A035FF280FAF98003A41AD /* dsx.kline.js */,
 				1189D95D280F9B7300B5D1AF /* DsxKlineView.h */,
 				1189D95E280F9B7300B5D1AF /* DsxKlineView.m */,
 				11D86A30282BADD800F36CDB /* QQhq.h */,
@@ -269,8 +269,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1156A185280FAFCF0000697B /* index.html in Resources */,
+				1151395E282D583E007256FE /* dsx.kline_v_1_0_1.js in Resources */,
 				1189D932280F945F00B5D1AF /* LaunchScreen.storyboard in Resources */,
-				11A03600280FAF98003A41AD /* dsx.kline.js in Resources */,
 				1189D92F280F945F00B5D1AF /* Assets.xcassets in Resources */,
 				1189D92D280F945E00B5D1AF /* Main.storyboard in Resources */,
 			);

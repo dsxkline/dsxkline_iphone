@@ -34,7 +34,12 @@
     _scrollView.delaysContentTouches = true;
     [self.view addSubview:_scrollView];
     [self createTabbar];
-    _dsxKlineView = [[DsxKlineView alloc] initWithFrame:CGRectMake(0, 44, self.view.bounds.size.width, 300)];
+    double height = 3*50 + 5*50;
+    _dsxKlineView = [[DsxKlineView alloc] initWithFrame:CGRectMake(0, 44, self.view.bounds.size.width, height)];
+    _dsxKlineView.sides = @[@"VOL",@"MACD",@"RSI"];
+    _dsxKlineView.sideHeight = 50;
+    _dsxKlineView.height = height;
+//    _dsxKlineView.debug = TRUE;
     [_scrollView addSubview:_dsxKlineView];
     // 初始化加载数据
     _dsxKlineView.onLoading = ^{
@@ -81,6 +86,16 @@
     int tag = (int)bt.tag;
     _cycle = tag;
     _dsxKlineView.chartType = tag<=2?tag:2;
+    if (tag>=2) {
+        // 蜡烛图指标
+        _dsxKlineView.sides = @[@"VOL",@"KDJ",@"MACD",@"RSI",@"WR",@"CCI",@"BIAS",@"PSY"];
+    }else{
+        // 分时图指标
+        _dsxKlineView.sides = @[@"VOL",@"MACD",@"RSI"];
+    }
+    double height = _dsxKlineView.sides.count*_dsxKlineView.sideHeight + 5*_dsxKlineView.sideHeight;
+    [_dsxKlineView setFrame:CGRectMake(0, 44, self.view.frame.size.width, height)];
+    _dsxKlineView.height = height;
     [_dsxKlineView startLoading];
     NSLog(@"%d",tag);
     

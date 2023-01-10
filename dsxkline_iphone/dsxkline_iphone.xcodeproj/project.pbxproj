@@ -19,6 +19,7 @@
 		1189D93F280F945F00B5D1AF /* dsxkline_iphoneTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1189D93E280F945F00B5D1AF /* dsxkline_iphoneTests.m */; };
 		1189D94A280F945F00B5D1AF /* dsxkline_iphoneUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1189D949280F945F00B5D1AF /* dsxkline_iphoneUITests.m */; };
 		1189D95F280F9B7300B5D1AF /* DsxKlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1189D95E280F9B7300B5D1AF /* DsxKlineView.m */; };
+		11D44DB7296AD87A00521334 /* dsx.kline_v_1_1_0.js in Resources */ = {isa = PBXBuildFile; fileRef = 11D44DB6296AD87A00521334 /* dsx.kline_v_1_1_0.js */; };
 		11D86A32282BADD800F36CDB /* QQhq.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D86A31282BADD800F36CDB /* QQhq.m */; };
 		11D86A35282BAECD00F36CDB /* HqModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D86A34282BAECD00F36CDB /* HqModel.m */; };
 /* End PBXBuildFile section */
@@ -63,6 +64,7 @@
 		1189D94B280F945F00B5D1AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1189D95D280F9B7300B5D1AF /* DsxKlineView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DsxKlineView.h; sourceTree = "<group>"; };
 		1189D95E280F9B7300B5D1AF /* DsxKlineView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DsxKlineView.m; sourceTree = "<group>"; };
+		11D44DB6296AD87A00521334 /* dsx.kline_v_1_1_0.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = dsx.kline_v_1_1_0.js; sourceTree = "<group>"; };
 		11D86A30282BADD800F36CDB /* QQhq.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QQhq.h; sourceTree = "<group>"; };
 		11D86A31282BADD800F36CDB /* QQhq.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QQhq.m; sourceTree = "<group>"; };
 		11D86A33282BAECD00F36CDB /* HqModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HqModel.h; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 		1189D957280F9AB300B5D1AF /* dsxkline */ = {
 			isa = PBXGroup;
 			children = (
+				11D44DB6296AD87A00521334 /* dsx.kline_v_1_1_0.js */,
 				1151395D282D583E007256FE /* dsx.kline_v_1_0_1.js */,
 				1156A184280FAFCF0000697B /* index.html */,
 				1189D95D280F9B7300B5D1AF /* DsxKlineView.h */,
@@ -271,6 +274,7 @@
 				1156A185280FAFCF0000697B /* index.html in Resources */,
 				1151395E282D583E007256FE /* dsx.kline_v_1_0_1.js in Resources */,
 				1189D932280F945F00B5D1AF /* LaunchScreen.storyboard in Resources */,
+				11D44DB7296AD87A00521334 /* dsx.kline_v_1_1_0.js in Resources */,
 				1189D92F280F945F00B5D1AF /* Assets.xcassets in Resources */,
 				1189D92D280F945E00B5D1AF /* Main.storyboard in Resources */,
 			);

@@ -12,6 +12,7 @@
 
 @property (nonatomic,strong) WKWebView *webView;
 @property (nonatomic,strong) NSString *code;
+@property (nonatomic,strong) WKUserContentController *userController;
 
 @end
 
@@ -45,7 +46,7 @@
     _height = self.frame.size.height;
     _sideHeight = _height / 6;
     _main = @[@"MA"];
-    _sides = @[@"VOL"];
+    _sides = @[@"VOL",@"MACD",@"RSI"];
     _klineWidth = 5;
     _page = 1;
     _datas = [NSMutableArray arrayWithArray:@[]];
@@ -53,11 +54,11 @@
 
 -(void)createViews
 {
-    [self setBackgroundColor:[UIColor redColor]];
+    [self setBackgroundColor:[UIColor clearColor]];
     [self initParams];
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
-    WKUserContentController *userController = [[WKUserContentController alloc] init];
-    configuration.userContentController = userController;
+    _userController = [[WKUserContentController alloc] init];
+    configuration.userContentController = _userController;
     _webView = [[WKWebView alloc] initWithFrame:self.bounds configuration:configuration];
     [self addSubview:_webView];
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"index.html" ofType:nil];
@@ -66,9 +67,10 @@
     _webView.navigationDelegate = self;
     
     // 注册js方法
-    [userController addScriptMessageHandler:self name:@"onLoading"];
-    [userController addScriptMessageHandler:self name:@"scrollLeftCallBack"];
-    
+    [_userController addScriptMessageHandler:self name:@"onLoading"];
+    [_userController addScriptMessageHandler:self name:@"scrollLeftCallBack"];
+    [_userController addScriptMessageHandler:self name:@"log"];
+    [self showConsole];
 }
 
 -(void)executeJs:(NSString*)js{
@@ -95,10 +97,12 @@
         sideHeight:%f, \
         paddingBottom:0,  \
         rightEmptyKlineAmount:1,\
-        autoSize:true,  \
+        autoSize:false,  \
         debug:%@,  \
         main:%@, \
         sides:%@, \
+        width:%.2f, \
+        height:%.2f, \
         onLoading:function(o){  \
             window.webkit.messageHandlers.onLoading.postMessage([]); \
         },  \
@@ -113,25 +117,27 @@
         }  \
     }); ";
     
-    if (@available(iOS 11.0, *)) {
-        NSString *main = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:_main options:NSJSONWritingSortedKeys error:nil] encoding:NSUTF8StringEncoding];
-        NSString *sides = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:_sides options:NSJSONWritingSortedKeys error:nil] encoding:NSUTF8StringEncoding];
-        
-        NSString *script = [NSString stringWithFormat:js,_chartType,_theme,_candleType,_zoomLockType,_isShowKlineTipPannel?@"true":@"false",_lastClose,_sideHeight,_debug?@"true":@"false",main,sides];
-        [self executeJs:script];
-    } else {
-        // Fallback on earlier versions
-    }
+    NSString *main = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:_main options:NSJSONWritingSortedKeys error:nil] encoding:NSUTF8StringEncoding];
+    NSString *sides = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:_sides options:NSJSONWritingSortedKeys error:nil] encoding:NSUTF8StringEncoding];
     
+    NSString *script = [NSString stringWithFormat:js,_chartType,_theme,_candleType,_zoomLockType,_isShowKlineTipPannel?@"true":@"false",_lastClose,_sideHeight,_debug?@"true":@"false",main,sides,_width,_height];
+    [self executeJs:script];
     
 }
 -(void)startLoading{
+    [self updateFrame];
     NSString *js = @"kline.chartType=%d;kline.startLoading();";
     NSString *script = [NSString stringWithFormat:js,_chartType];
     [self executeJs:script];
 }
+-(void)updateFrame{
+    CGRect frame = self.webView.frame;
+    frame.size.height = self.height;
+    [self.webView setFrame:frame];
+}
 -(void)updateKline:(NSArray *)data{
     NSLog(@"第几页：%d,数据长度：%ld",_page,data.count);
+    [self updateFrame];
     NSString *js = @"var data = %@;\
     if(data!=null){\
       if(kline!=null){\
@@ -145,7 +151,9 @@
             sides:%@,\
             page:%d,\
             sideHeight:%f,\
-            datas:data\
+            datas:data,\
+            width:%.2f, \
+            height:%.2f, \
           });\
       }\
     };kline.finishLoading();";
@@ -154,7 +162,7 @@
     
     NSString *d = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:data options:NSJSONWritingSortedKeys error:nil] encoding:NSUTF8StringEncoding];
     
-    NSString *script = [NSString stringWithFormat:js,d,_chartType,_theme,_candleType,_zoomLockType,_isShowKlineTipPannel?@"true":@"false",_lastClose,sides,_page,_sideHeight];
+    NSString *script = [NSString stringWithFormat:js,d,_chartType,_theme,_candleType,_zoomLockType,_isShowKlineTipPannel?@"true":@"false",_lastClose,sides,_page,_sideHeight,_width,_height];
     //NSLog(@"%@",script);
     [self executeJs:script];
 }
@@ -170,9 +178,24 @@
     [self executeJs:js];
 }
 
+- (void)showConsole {
+
+    NSString *jsCode = @"console.log = (function(oriLogFunc){\
+    return function(str)\
+    {\
+    window.webkit.messageHandlers.log.postMessage(str);\
+    oriLogFunc.call(console,str);\
+    }\
+    })(console.log);";
+    
+    [_userController addUserScript:[[WKUserScript alloc] initWithSource:jsCode injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES]];
+
+}
+
+
 // js 调用 oc
 -(void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message{
-    //NSLog(@"js：%@",message);
+    NSLog(@"%@",[message body]);
     if ([message.name isEqualToString:@"onLoading"]) {
         if(_onLoading) _onLoading();
     }
@@ -198,8 +221,6 @@
     [self createKline];
 
 }
-
-
 
 
 @end
